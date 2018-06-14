@@ -1,5 +1,16 @@
 // listen for submit
-document.getElementById('loan-form').addEventListener('submit', calculateResults)
+document.getElementById('loan-form').addEventListener('submit', function(e) {
+  // hide results
+  document.getElementById('results').style.display = 'none'
+  // show loader
+  document.getElementById('loading').style.display = 'block'
+
+  setTimeout(calculateResults, 500)
+
+  e.preventDefault();
+  
+})
+
 
 // calculate results function
 function calculateResults(e) {
@@ -27,19 +38,16 @@ if(isFinite(monthly)) {
   uiMonthlyPayment.value = monthly.toFixed(2)
   uiTotalPayment.value = (monthly * calculatedPayments).toFixed(2)
   uiTotalInterest.value = ((monthly * calculatedPayments) - principal).toFixed(2)
+// show results, hide loader
+  document.getElementById('results').style.display = 'block'
+  document.getElementById('loading').style.display = 'none'
 } else {
   showError('Please check your numbers')
-  
-  
   console.log('Please check your numbers')
   uiMonthlyPayment.value = ''
   uiTotalPayment.value = ''
   uiTotalInterest.value = ''
-}
-
-  console.log('test function')
-  e.preventDefault();
-  
+  }  
 }
 
 // function showError(error) {
@@ -65,6 +73,8 @@ function showError(error) {
   const errorDiv = document.getElementById('invalid-numbers-alert')
   errorDiv.classList.toggle('hidden')
   errorDiv.classList.toggle('show')
+  document.getElementById('loading').style.display = 'none'
+  document.getElementById('results').style.display = 'none'
   setTimeout(clearError, 3000)
 }
 

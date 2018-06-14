@@ -12,3 +12,7 @@
   opacity: 1;
   transition: visibility .5s, opacity .5s linear, height 0.5s;
 }
+
+#loading, #results {
+  display: none;
+}
